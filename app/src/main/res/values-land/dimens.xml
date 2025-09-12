@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <!-- 横屏尺寸 - 更紧凑的布局 -->
+        <dimen name="head_size">100dp</dimen>  <!-- 进一步缩小 -->
+        <dimen name="title_margin_top">12dp</dimen>
+        <dimen name="head_margin_top">12dp</dimen>
+        <dimen name="input_margin_top">16dp</dimen>
+        <dimen name="button_margin_top">16dp</dimen>
+        <dimen name="progress_margin_top">16dp</dimen>
+        <dimen name="button_spacing">8dp</dimen>
+</resources>

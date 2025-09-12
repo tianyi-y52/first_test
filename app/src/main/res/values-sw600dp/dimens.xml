@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 平板尺寸 - 更大的元素和间距 -->
+    <dimen name="head_size">180dp</dimen>
+    <dimen name="title_margin_top">48dp</dimen>
+    <dimen name="head_margin_top">36dp</dimen>
+    <dimen name="input_margin_top">36dp</dimen>
+    <dimen name="button_margin_top">36dp</dimen>
+    <dimen name="progress_margin_top">36dp</dimen>
+    <dimen name="button_spacing">16dp</dimen>
+</resources>

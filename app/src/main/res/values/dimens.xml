@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 默认尺寸 - 用于手机竖屏 -->
+    <dimen name="head_size">150dp</dimen>
+    <dimen name="title_margin_top">32dp</dimen>
+    <dimen name="head_margin_top">32dp</dimen>
+    <dimen name="input_margin_top">32dp</dimen>
+    <dimen name="button_margin_top">32dp</dimen>
+    <dimen name="progress_margin_top">32dp</dimen>
+    <dimen name="button_spacing">8dp</dimen>
+</resources>

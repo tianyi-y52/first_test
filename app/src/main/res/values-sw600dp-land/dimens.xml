@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 平板横屏 - 最紧凑的布局 -->
+    <dimen name="head_size">120dp</dimen>
+    <dimen name="title_margin_top">24dp</dimen>
+    <dimen name="head_margin_top">20dp</dimen>
+    <dimen name="input_margin_top">24dp</dimen>
+    <dimen name="button_margin_top">24dp</dimen>
+    <dimen name="progress_margin_top">24dp</dimen>
+    <dimen name="button_spacing">12dp</dimen>
+</resources>
