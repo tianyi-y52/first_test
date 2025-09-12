@@ -1,26 +1,19 @@
 package com.example.application2test;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-    private Button confirm;
-    private Button cancel;
-    private EditText editText1;
-    private EditText editText2;
-    private ProgressBar progressBar;
+
+    private EditText etUsername, etPassword;
+    private RadioGroup avatarRadioGroup;
+    private CustomToolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,56 +21,52 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // 初始化视图
-        confirm = findViewById(R.id.button1);
-        cancel = findViewById(R.id.button2);
-        editText1 = findViewById(R.id.edit_text1);
-        editText2 = findViewById(R.id.edit_text2);
-        progressBar = findViewById(R.id.progress_bar);
-        ImageView imageView = findViewById(R.id.image_view);
-        imageView.setAlpha(0.5f);
+        etUsername = findViewById(R.id.et_username);
+        etPassword = findViewById(R.id.et_password);
+        avatarRadioGroup = findViewById(R.id.avatar_radio_group);
+        toolbar = findViewById(R.id.toolbar);
 
-        // 确认按钮逻辑
-        confirm.setOnClickListener(v -> {
-            String inputText1 = editText1.getText().toString().trim();
-            String inputText2 = editText2.getText().toString().trim();
-            String expectedText1 = "123";
-            String expectedText2 = "123456";
+        // 设置工具栏
+        toolbar.setTitle("社交登录");
+        toolbar.setAvatar(R.drawable.avatar1);
 
-            if (inputText1.equals(expectedText1) && inputText2.equals(expectedText2)) {
-                // 使用 ObjectAnimator 让进度条平滑增加到 100%
-                animateProgressBar();
-            } else {
-                new AlertDialog.Builder(this)
-                        .setTitle("输入错误")
-                        .setMessage("您输入的内容不符合要求，请重新输入！")
-                        .setCancelable(false)
-                        .setPositiveButton("确定", (dialog, which) -> dialog.dismiss())
-                        .show();
+        // 直接设置登录按钮点击事件
+        Button btnLogin = findViewById(R.id.btn_login);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username = etUsername.getText().toString().trim();
+                String password = etPassword.getText().toString().trim();
+
+                if (username.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "请输入用户名和密码", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // 获取选中的头像
+                int selectedAvatarId = getSelectedAvatar();
+
+                // 创建User对象
+                User user = new User(username, password, selectedAvatarId);
+
+                // 跳转到好友列表界面
+                Intent intent = new Intent(MainActivity.this, FriendListActivity.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
             }
-        });
-
-        // 取消按钮逻辑
-        cancel.setOnClickListener(v -> {
-            editText1.setText("");
-            editText2.setText("");
         });
     }
 
-    /**
-     * 使用 ObjectAnimator 让进度条平滑增加到 100%
-     */
-    private void animateProgressBar() {
-        // 从当前进度动画到 100%，持续 1 秒（1000ms）
-        ObjectAnimator animator = ObjectAnimator.ofInt(progressBar, "progress", progressBar.getProgress(), 100);
-        animator.setDuration(1000); // 动画时长
-        animator.start();
+    private int getSelectedAvatar() {
+        int selectedId = avatarRadioGroup.getCheckedRadioButtonId();
 
-        // 可选：动画结束后显示 Toast
-        animator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                Toast.makeText(MainActivity.this, "验证成功，进度已更新", Toast.LENGTH_SHORT).show();
-            }
-        });
+        if (selectedId == R.id.rb_avatar1) {
+            return R.drawable.avatar1;
+        } else if (selectedId == R.id.rb_avatar2) {
+            return R.drawable.avatar2;
+        } else if (selectedId == R.id.rb_avatar3) {
+            return R.drawable.avatar3;
+        }
+        return R.drawable.avatar1;
     }
 }

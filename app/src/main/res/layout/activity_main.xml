@@ -2,146 +2,109 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".MainActivity">
+    android:padding="16dp">
 
-    <!-- 1. 背景图片 - 添加完整约束 -->
+    <!-- 背景图片 -->
     <ImageView
         android:id="@+id/image_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/a"
+        android:src="@drawable/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- 2. 可滚动容器 - 添加完整约束 -->
-    <androidx.core.widget.NestedScrollView
+    <!-- 自定义工具栏 -->
+    <com.example.application2test.CustomToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 其他登录表单内容 -->
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- 3. 标题 - 添加完整约束 -->
-            <TextView
-                android:id="@+id/title_text"
-                android:layout_width="0dp"
+            <!-- 修复触摸目标大小 -->
+            <EditText
+                android:id="@+id/et_username"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Welcome!"
-                android:textSize="30sp"
-                android:textColor="#FFD500"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/title_margin_top"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:minHeight="48dp"
+                android:hint="用户名"
+                android:layout_marginTop="20dp"/>
 
-            <!-- 4. 头像 - 添加完整约束 -->
-            <ImageView
-                android:id="@+id/image_head"
-                android:layout_width="@dimen/head_size"
-                android:layout_height="@dimen/head_size"
-                android:src="@drawable/b"
-                android:scaleType="fitCenter"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title_text"
-                android:layout_marginTop="@dimen/head_margin_top" />
-
-            <!-- 5. 用户名输入框 - 添加完整约束 -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/username_container"
-                android:layout_width="0dp"
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/input_margin_top"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image_head">
+                android:minHeight="48dp"
+                android:hint="密码"
+                android:inputType="textPassword"
+                android:layout_marginTop="10dp"/>
 
-                <EditText
-                    android:id="@+id/edit_text1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="用户名"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- 6. 密码输入框 - 添加完整约束 -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/password_container"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/username_container">
-
-                <EditText
-                    android:id="@+id/edit_text2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="密码"
-                    android:inputType="textPassword" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- 7. 按钮容器 - 添加完整约束 -->
-            <LinearLayout
-                android:id="@+id/button_container"
-                android:layout_width="0dp"
+            <RadioGroup
+                android:id="@+id/avatar_radio_group"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/button_margin_top"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/password_container">
+                android:layout_marginTop="20dp">
 
-                <Button
-                    android:id="@+id/button1"
+                <RadioButton
+                    android:id="@+id/rb_avatar1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="确认"
-                    android:backgroundTint="#FF5722"
-                    android:textColor="#0F0F0E"
-                    android:layout_marginEnd="@dimen/button_spacing" />
+                    android:minHeight="48dp"
+                    android:button="@drawable/avatar_selector"
+                    android:drawableTop="@drawable/avatar1"/>
 
-                <Button
-                    android:id="@+id/button2"
+                <RadioButton
+                    android:id="@+id/rb_avatar2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="取消"
-                    android:backgroundTint="#03A9F4"
-                    android:textColor="#0F0F0E"
-                    android:layout_marginStart="@dimen/button_spacing" />
-            </LinearLayout>
+                    android:minHeight="48dp"
+                    android:button="@drawable/avatar_selector"
+                    android:drawableTop="@drawable/avatar2"
+                    android:layout_marginLeft="20dp"/>
 
-            <!-- 8. 进度条 - 添加完整约束 -->
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                android:layout_width="0dp"
+                <RadioButton
+                    android:id="@+id/rb_avatar3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:button="@drawable/avatar_selector"
+                    android:drawableTop="@drawable/avatar3"
+                    android:layout_marginLeft="20dp"/>
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:max="100"
-                android:layout_marginTop="@dimen/progress_margin_top"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/button_container" />
+                android:minHeight="48dp"
+                android:text="登录"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="#FF5722"
+                android:textColor="#FFFFFF"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

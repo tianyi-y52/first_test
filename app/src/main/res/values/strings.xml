@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Application2Test</string>
+    <string name="avatar_description">用户头像</string>
+    <string name="settings_button_description">打开设置菜单</string>
 </resources>

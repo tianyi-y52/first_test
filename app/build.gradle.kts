@@ -34,7 +34,11 @@ android {
 dependencies {
 
     implementation(libs.appcompat)
-    implementation("com.google.android.material:material:1.9.0")  // ← 添加这一行
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.9.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.core:core:1.10.1")
+    implementation("androidx.core:core-ktx:1.10.1")// 添加这些依赖
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
