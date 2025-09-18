@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,25 +13,28 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText etUsername, etPassword;
     private CustomToolbar toolbar;
-    // +++ 新增的变量 +++
     private ImageView ivAvatar1, ivAvatar2, ivAvatar3;
-    private int selectedAvatarResId = R.drawable.avatar1; // 默认选中第一个头像
+    private int selectedAvatarResId = R.drawable.avatar1;
+    private DatabaseHelper databaseHelper; // 添加数据库帮助类
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // 初始化数据库
+        databaseHelper = new DatabaseHelper(this);
+
         // 初始化视图
         etUsername = findViewById(R.id.et_username);
         etPassword = findViewById(R.id.et_password);
-        //avatarRadioGroup = findViewById(R.id.avatar_radio_group);
         toolbar = findViewById(R.id.toolbar);
 
         // 设置工具栏
         toolbar.setTitle("社交登录");
         toolbar.setAvatar(R.drawable.avatar1);
-        // +++ 新增：初始化头像选择功能 +++
+
+        // 初始化头像选择功能
         initAvatarSelection();
 
         // 直接设置登录按钮点击事件
@@ -48,10 +50,15 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                // 获取选中的头像 - 现在直接使用变量 selectedAvatarResId
+                // 验证用户（这里简化处理，实际应该验证数据库）
+                boolean isValid = databaseHelper.validateUser(username, password);
+                if (!isValid) {
+                    Toast.makeText(MainActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // 获取选中的头像
                 User user = new User(username, password, selectedAvatarResId);
-
-
 
                 // 跳转到好友列表界面
                 Intent intent = new Intent(MainActivity.this, FriendListActivity.class);
@@ -61,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // +++ 新增方法：初始化头像选择功能 +++
     private void initAvatarSelection() {
         // 1. 找到三个头像ImageView
         ivAvatar1 = findViewById(R.id.iv_avatar1);
@@ -102,5 +108,14 @@ public class MainActivity extends AppCompatActivity {
         ivAvatar1.setOnClickListener(avatarClickListener);
         ivAvatar2.setOnClickListener(avatarClickListener);
         ivAvatar3.setOnClickListener(avatarClickListener);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 关闭数据库连接
+        if (databaseHelper != null) {
+            databaseHelper.close();
+        }
     }
 }

@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">Application2Test</string>
+    <string name="app_name">社交应用</string>
     <string name="avatar_description">用户头像</string>
-    <string name="settings_button_description">打开设置菜单</string>
+    <string name="settings_button_description">设置按钮</string>
+    <string name="back_button_description">返回按钮</string>
 </resources>

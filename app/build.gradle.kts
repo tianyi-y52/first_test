@@ -34,6 +34,14 @@ android {
 dependencies {
 
     implementation(libs.appcompat)
+    // 添加图表库
+    //implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    // 如果还有错误，添加以下依赖
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.9.0")
+// 添加网络库（如果需要第三方API）
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
