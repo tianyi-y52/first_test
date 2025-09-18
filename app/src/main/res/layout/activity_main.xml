@@ -60,39 +60,49 @@
                 android:inputType="textPassword"
                 android:layout_marginTop="10dp"/>
 
-            <RadioGroup
-                android:id="@+id/avatar_radio_group"
+            <LinearLayout
+                android:id="@+id/avatar_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:gravity="center"
                 android:layout_marginTop="20dp">
 
-                <RadioButton
-                    android:id="@+id/rb_avatar1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minHeight="48dp"
-                    android:button="@drawable/avatar_selector"
-                    android:drawableTop="@drawable/avatar1"/>
+                <ImageView
+                    android:id="@+id/iv_avatar1"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/avatar1"
+                    android:background="@drawable/avatar_selector"
+                    android:padding="4dp"
+                    android:clickable="true"
+                    android:focusable="true"/>
 
-                <RadioButton
-                    android:id="@+id/rb_avatar2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minHeight="48dp"
-                    android:button="@drawable/avatar_selector"
-                    android:drawableTop="@drawable/avatar2"
-                    android:layout_marginLeft="20dp"/>
+                <ImageView
+                    android:id="@+id/iv_avatar2"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/avatar2"
+                    android:background="@drawable/avatar_selector"
+                    android:padding="4dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_marginStart="20dp"/>
 
-                <RadioButton
-                    android:id="@+id/rb_avatar3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minHeight="48dp"
-                    android:button="@drawable/avatar_selector"
-                    android:drawableTop="@drawable/avatar3"
-                    android:layout_marginLeft="20dp"/>
-            </RadioGroup>
+                <ImageView
+                    android:id="@+id/iv_avatar3"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/avatar3"
+                    android:background="@drawable/avatar_selector"
+                    android:padding="4dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_marginStart="20dp"/>
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btn_login"

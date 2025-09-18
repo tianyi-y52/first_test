@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,8 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     private EditText etUsername, etPassword;
-    private RadioGroup avatarRadioGroup;
     private CustomToolbar toolbar;
+    // +++ 新增的变量 +++
+    private ImageView ivAvatar1, ivAvatar2, ivAvatar3;
+    private int selectedAvatarResId = R.drawable.avatar1; // 默认选中第一个头像
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +26,14 @@ public class MainActivity extends AppCompatActivity {
         // 初始化视图
         etUsername = findViewById(R.id.et_username);
         etPassword = findViewById(R.id.et_password);
-        avatarRadioGroup = findViewById(R.id.avatar_radio_group);
+        //avatarRadioGroup = findViewById(R.id.avatar_radio_group);
         toolbar = findViewById(R.id.toolbar);
 
         // 设置工具栏
         toolbar.setTitle("社交登录");
         toolbar.setAvatar(R.drawable.avatar1);
+        // +++ 新增：初始化头像选择功能 +++
+        initAvatarSelection();
 
         // 直接设置登录按钮点击事件
         Button btnLogin = findViewById(R.id.btn_login);
@@ -43,11 +48,10 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                // 获取选中的头像
-                int selectedAvatarId = getSelectedAvatar();
+                // 获取选中的头像 - 现在直接使用变量 selectedAvatarResId
+                User user = new User(username, password, selectedAvatarResId);
 
-                // 创建User对象
-                User user = new User(username, password, selectedAvatarId);
+
 
                 // 跳转到好友列表界面
                 Intent intent = new Intent(MainActivity.this, FriendListActivity.class);
@@ -57,16 +61,46 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private int getSelectedAvatar() {
-        int selectedId = avatarRadioGroup.getCheckedRadioButtonId();
+    // +++ 新增方法：初始化头像选择功能 +++
+    private void initAvatarSelection() {
+        // 1. 找到三个头像ImageView
+        ivAvatar1 = findViewById(R.id.iv_avatar1);
+        ivAvatar2 = findViewById(R.id.iv_avatar2);
+        ivAvatar3 = findViewById(R.id.iv_avatar3);
 
-        if (selectedId == R.id.rb_avatar1) {
-            return R.drawable.avatar1;
-        } else if (selectedId == R.id.rb_avatar2) {
-            return R.drawable.avatar2;
-        } else if (selectedId == R.id.rb_avatar3) {
-            return R.drawable.avatar3;
-        }
-        return R.drawable.avatar1;
+        // 2. 设置第一个头像为默认选中状态
+        ivAvatar1.setSelected(true);
+
+        // 3. 创建统一的点击监听器
+        View.OnClickListener avatarClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 3.1 先取消所有头像的选中状态
+                ivAvatar1.setSelected(false);
+                ivAvatar2.setSelected(false);
+                ivAvatar3.setSelected(false);
+
+                // 3.2 设置被点击的头像为选中状态
+                v.setSelected(true);
+
+                // 3.3 更新选中的头像资源ID
+                int viewId = v.getId();
+                if (viewId == R.id.iv_avatar1) {
+                    selectedAvatarResId = R.drawable.avatar1;
+                } else if (viewId == R.id.iv_avatar2) {
+                    selectedAvatarResId = R.drawable.avatar2;
+                } else if (viewId == R.id.iv_avatar3) {
+                    selectedAvatarResId = R.drawable.avatar3;
+                }
+
+                // 可选：立即更新工具栏头像预览
+                toolbar.setAvatar(selectedAvatarResId);
+            }
+        };
+
+        // 4. 为每个头像设置点击监听器
+        ivAvatar1.setOnClickListener(avatarClickListener);
+        ivAvatar2.setOnClickListener(avatarClickListener);
+        ivAvatar3.setOnClickListener(avatarClickListener);
     }
 }
